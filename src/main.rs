@@ -1,9 +1,18 @@
-use std::env;
-use dotenv::dotenv;
+mod input;
+mod year2024;
 
-fn main() {
+use dotenv::dotenv;
+use input::get_input;
+
+#[tokio::main]
+async fn main() -> Result<(), std::io::Error> {
     dotenv().ok();
-    let session_cookie = env::var("SESSION")
-        .expect("Please specify the session cookie");
-    println!("{}", session_cookie);
+    let year = "2024";
+    let day = "1";
+    let input = get_input(year, day).await.unwrap();
+    match year {
+        "2024" => year2024::solve(day, input),
+        _ => println!("Year {year} is not solved yet")
+    }
+    Ok(())
 }
