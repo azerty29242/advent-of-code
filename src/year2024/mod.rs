@@ -15,5 +15,5 @@ pub fn solve(day: &str, input: String) {
         _ => Err("Day {day} of year 2024 is not solved yet")
     }.unwrap();
 
-    println!("{part1}");
+    println!("Here is the solution to part 1 : {part1}");
 }
