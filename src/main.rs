@@ -8,7 +8,7 @@ use input::get_input;
 async fn main() -> Result<(), std::io::Error> {
     dotenv().ok();
     let year = "2024";
-    let day = "1";
+    let day = "2";
     let input = get_input(year, day).await.unwrap();
     match year {
         "2024" => year2024::solve(day, input),
