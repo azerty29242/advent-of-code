@@ -4,27 +4,16 @@ use std::iter::Peekable;
 pub fn part1(input: String) -> String {
     let mut safe_levels_count = 0;
     for report in input.lines() {
-        let mut report = report.split_whitespace().peekable();
-        let mut safe = true;
-        let mut last_level = report.next().unwrap().parse::<u8>().unwrap();
-        let increasing = last_level < report.peek().unwrap().parse::<u8>().unwrap();
-        for current_level in report {
-            let current_level = current_level.parse::<u8>().unwrap();
-            if last_level == current_level {
-                safe = false;
-                break;
-            }
-            else if last_level > current_level && (increasing == true || last_level - current_level > 3) {
-                safe = false;
-                break;
-            }
-            else if last_level < current_level && (increasing == false || current_level - last_level > 3) {
-                safe = false;
-                break;
-            }
-            last_level = current_level;
-        }
-        if safe {
+        let report = report
+            .split_whitespace()
+            .map(|level| level
+            .parse::<u8>()
+            .unwrap())
+            .collect::<Vec<u8>>();
+        let report = report
+            .iter()
+            .peekable();
+        if is_safe(report) {
             safe_levels_count += 1;
         }
     }
